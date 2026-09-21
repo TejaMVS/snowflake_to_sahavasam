@@ -1,5 +1,7 @@
 # Snowflake Architecture Notes
 
+* Refer here for [Snowflake Documentation](https://docs.snowflake.com/en/)
+
 ## 🏗️ Three Layers
 ```
 Cloud Services Layer
@@ -8,6 +10,10 @@ Virtual Warehouse Layer
     ↓ (processes)
 Storage Layer
 ```
+* Snowflake architecture :
+* ![preview](./images/arch.png)
+
+
 
 ## 🔑 Key Components
 
@@ -23,24 +29,16 @@ Storage Layer
 ### 2. Virtual Warehouse Layer (Compute)
 - Independent compute clusters
 - Scale up/down as needed
-- Auto-suspend after 10 mins idle
+* ```NOTE```: The current advanced settings are auto-resume: on, auto-suspend: 5mins, multi-cluster: off, query acceleration: on
+- Auto-suspend after 5 mins idle
     - Billing is based on the time the warehouse is active, so auto-suspend can help save costs by pausing the warehouse when not in use. For example, if a warehouse is idle for 10 minutes, it will automatically suspend, preventing unnecessary charges. Users can also manually resume the warehouse when needed.
 
-* Virtual warehouse sizes depend on the operations being performed and the environment. For example, a small warehouse (XS) is suitable for light workloads and testing, while a larger warehouse (4XL) can handle heavy workloads and large data processing tasks. The ability to scale up or down allows users to optimize performance and cost based on their specific needs.
+* Virtual warehouse sizes depend on :
+    * the operations being performed and the environment. 
+    * For example, a small warehouse (XS) is suitable for light workloads and testing, while a larger warehouse (4XL) can handle heavy workloads and large data processing tasks. The ability to scale up or down allows users to optimize performance and cost based on their specific needs.
 
 * Warehouse sizes from XS to 6XL, with corresponding credit costs. For instance, an XS warehouse costs 1 credit per hour, while a 4XL warehouse costs 8 credits per hour. This pricing model allows users to choose the appropriate warehouse size based on their workload requirements and budget constraints.
-* XS will have one compute instance, while 2X and above can have multiple instances for better performance and concurrency. This means that larger warehouses can handle more simultaneous queries and provide faster results, making them ideal for high-demand environments.
-* List of compute instances from XS to 6XL as below:
-  - XS: 1 compute instance
-  - S: 2 compute instances
-  - M: 4 compute instances
-  - L: 8 compute instances
-  - XL: 16 compute instances
-  - 2XL: 32 compute instances
-  - 3XL: 64 compute instances
-  - 4XL: 128 compute instances
-  - 5XL: 256 compute instances
-  - 6XL: 512 compute instances
+* Refer here for [Warehouse Pricing](https://www.snowflake.com/legal-files/CreditConsumptionTable.pdf)
 
 * you can increase size of warehouse using webui or SQL command   
 
